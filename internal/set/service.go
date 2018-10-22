@@ -118,7 +118,6 @@ type notFoundResponse struct {
 	Message string `json:"message"`
 }
 
-// Error implements the error interface.
 func (r notFoundResponse) Error() string {
 	return r.Message
 }
@@ -133,7 +132,6 @@ type validationError struct {
 	Message string `json:"message"`
 }
 
-// Error implements the error interface.
 func (r validationErrorResponse) Error() string {
 	return r.Message
 }

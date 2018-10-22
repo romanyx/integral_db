@@ -13,16 +13,16 @@ var (
 )
 
 // Storage represents abstraction
-// for key/value strorage.
+// for key/value storage.
 type Storage interface {
 	Set(ctx context.Context, key, value interface{})
 	Get(key interface{}) (value interface{}, err error)
 }
 
-// New returns initialzied storage
+// New returns initialized storage
 // implementation. When context
 // of the Set method will be done, storage
-// will remove key from it. When same key
+// will remove key from it. When the same key
 // will be passed to the Get method, previous
 // context done wait will be expired.
 func New() Storage {
