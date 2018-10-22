@@ -44,7 +44,7 @@ type data struct {
 	reset chan struct{}
 }
 
-func (m muxMap) Get(key interface{}) (interface{}, error) {
+func (m *muxMap) Get(key interface{}) (interface{}, error) {
 	m.Lock()
 	defer m.Unlock()
 
@@ -59,10 +59,9 @@ func (m muxMap) Get(key interface{}) (interface{}, error) {
 	return data.value, nil
 }
 
-func (m muxMap) Set(ctx context.Context, key, value interface{}) {
+func (m *muxMap) Set(ctx context.Context, key, value interface{}) {
 	m.Lock()
 	{
-
 		d, ok := m.storage[key]
 		if ok {
 			// signal reset channel to
@@ -81,7 +80,15 @@ func (m muxMap) Set(ctx context.Context, key, value interface{}) {
 		go func() {
 			select {
 			case <-ctx.Done():
-				delete(m.storage, key)
+				m.Lock()
+				{
+					d, ok := m.storage[key]
+					if ok {
+						close(d.reset)
+					}
+					delete(m.storage, key)
+				}
+				m.Unlock()
 				ctxDoneCall()
 			case <-reset:
 				return
