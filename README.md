@@ -1,3 +1,6 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/romanyx/integral_db)](https://goreportcard.com/report/github.com/romanyx/integral_db)
+[![Build Status](https://travis-ci.org/romanyx/integral_db.svg?branch=master)](https://travis-ci.org/romanyx/integral_db)
+
 ``` sh
 make
 
