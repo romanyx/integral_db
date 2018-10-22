@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: integral
+    tier: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: integral
+      tier: db
+  template:
+    metadata:
+      labels:
+        app: integral
+        tier: db
+    spec:
+      containers:
+        - name: db
+          image: integral/db:0.0.1
+          ports:
+            - name: http
+              containerPort: 80
