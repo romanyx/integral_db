@@ -66,5 +66,3 @@ type GetterFunc func(*http.Request, *response) error
 func (f GetterFunc) Get(r *http.Request, resp *response) error {
 	return f(r, resp)
 }
-
-func Test_NewService(t *testing.T) {}
