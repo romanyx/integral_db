@@ -91,6 +91,9 @@ func (m *muxMap) Set(ctx context.Context, key, value interface{}) {
 				m.Unlock()
 				ctxDoneCall()
 			case <-reset:
+				// Prevent context leaks.
+				_, cancel := context.WithCancel(ctx)
+				cancel()
 				return
 			}
 		}()
